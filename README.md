@@ -1,3 +1,15 @@
+This repository contains code to estimate phycocyanin concentration from hyperspectral imagery using the method of O'Shea et al (2021). The code consists of a wrapper around the phycocyanin MDN estimator from:
+
+O'Shea, R. E., Pahlevan, N., Smith, B., Bresciani, M., Egerton, T., Giardino, C., ... & Vaičiūtė, D. (2021). Advancing cyanobacteria biomass estimation from hyperspectral observations: Demonstrations with HICO and PRISMA imagery. Remote Sensing of Environment, 266, 112693.
+
+## Use
+
+```bash
+python run_mdn.py reflectance_image output_directory
+```
+
+---
+
 # MDN-PC
 PC retrieval MDN for HICO and PRISMA
 
@@ -5,7 +17,7 @@ Setup:
 1. Download: git clone https://github.com/STREAM-RS/MDN-Phycocyanin.git MDNPC
 2. conda create --name example_PC_environment python=3.7
 3. conda activate example_PC_environment
-4. pip install -r requirements.txt 
+4. pip install -r requirements.txt
 5. copy below code into main.py, 1 directory above current directory
 6. python main.py
 
@@ -52,5 +64,3 @@ print(np.shape(PC))
 
 plt.imshow(np.flipud(np.transpose(PC)), vmin=0, vmax=100, cmap='jet')
 plt.show()
-
-
