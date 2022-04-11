@@ -8,11 +8,9 @@ import hytools_lite as htl
 from hytools_lite.io.envi import WriteENVI
 from scipy.interpolate import interp1d
 
-
 PRISMA_WAVES = [500, 507, 515, 523, 530,
 				  538, 546, 554, 563, 571, 579, 588, 596, 605, 614, 623, 632, 641, 651, 660, 670, 679, 689,
 				  699, 709, 719, ]
-
 
 def main():
     ''' Estimate phycocyanin concentration from hyperspectral imagery.
@@ -32,12 +30,6 @@ def main():
                           help='Output directory')
     args = parser.parse_args()
 
-    # base_name = '20210421190428_20210421190433_0001'
-    # rfl_file = '/data2/prisma/rfl/PRS_%s_120m/PRS_%s_rfl_decorr_120m_msk' % (base_name,base_name)
-
-    sensor = "PRISMA-noBnoNIR"
-    args2 = get_args(set_kwargs_PC(sensor))
-
     out_dir = args.out_dir+'/' if not args.out_dir.endswith('/') else args.out_dir
 
     rfl = htl.HyTools()
@@ -48,6 +40,9 @@ def main():
 
     #Clear system arguments, needed or else error thrown by MDN function
     sys.argv = [sys.argv[0]]
+    sensor = "PRISMA-noBnoNIR"
+    args2 = get_args(set_kwargs_PC(sensor))
+    print(args2)
 
     pc = np.zeros((rfl.lines,rfl.columns,1))
     iterator =rfl.iterate(by = 'chunk',chunk_size = (500,500))
