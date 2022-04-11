@@ -10,7 +10,7 @@ output_dir=${base%.tar.gz}
 #echo $output_dir
 mkdir output/$output_dir
 
-yes | pip install -r ${pge_dir}/requirements.txt
+yes | python ${pge_dir}/setup.py install
 
 tar -xzvf $tar_file -C input
 
