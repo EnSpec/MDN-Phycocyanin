@@ -16,6 +16,8 @@ elif [[ $scene_id == "f"* ]]; then
     out_dir=$(echo $scene_id | cut -c1-16)_phyco
 fi
 
+mkdir output/$out_dir
+
 yes | python ${pge_dir}/setup.py install
 
 tar -xzvf $tar_file -C input
