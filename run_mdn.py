@@ -5,12 +5,22 @@ from MDNPC.parameters import get_args
 from MDNPC.utils import set_kwargs_PC
 import numpy as np
 import hytools_lite as htl
-from hytools_lite.io.envi import WriteENVI
+from hytools_lite.io.envi import WriteENVI, envi_header_dict
 from scipy.interpolate import interp1d
 
 PRISMA_WAVES = [500, 507, 515, 523, 530,
 				  538, 546, 554, 563, 571, 579, 588, 596, 605, 614, 623, 632, 641, 651, 660, 670, 679, 689,
 				  699, 709, 719, ]
+
+
+def name_cleanup(base_name):
+    if base_name.startswith('PRS'):
+        base_name =base_name[:38]
+    if base_name.startswith('ang'):
+        base_name =base_name[:18]
+    elif base_name.startswith('f'):
+        base_name =base_name[:31]
+    return base_name
 
 def main():
     ''' Estimate phycocyanin concentration from hyperspectral imagery.
@@ -61,12 +71,19 @@ def main():
     pc[ndvi > 0.1] = -9999
     pc[~rfl.mask['no_data']] = -9999
 
-    # Export chlorophyll A map
-    phyco_header = rfl.get_header()
+    # Export phycocyanin map
+    phyco_header =  envi_header_dict()
+    phyco_header['header offset'] = 0
+    phyco_header['data type'] = 4
+    phyco_header['interleave'] ='bil'
+    phyco_header['byte order'] = 0
+    phyco_header['lines'] =rfl.lines
+    phyco_header['samples'] =rfl.columns
     phyco_header['bands']= 1
-    phyco_header['band names']= ['pc']
-    phyco_header['wavelength']= []
-    phyco_header['fwhm']= []
+    phyco_header['map info'] = rfl.get_header()['map info']
+    phyco_header['description']= 'Phycocyanin content mg-m3'
+    phyco_header['band names']= ['phycocyanin']
+    phyco_header['data ignore value']= -9999
 
     out_file = "%s/%s_phyco" % (out_dir,rfl.base_name)
     writer = WriteENVI(out_file,phyco_header)
