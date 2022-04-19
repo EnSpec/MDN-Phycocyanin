@@ -9,11 +9,11 @@ base=$(basename $tar_file)
 scene_id=${base%.tar.gz}
 
 if  [[ $scene_id == "ang"* ]]; then
-    out_dir=$(echo $scene_id | cut -c1-18)_chla
+    out_dir=$(echo $scene_id | cut -c1-18)_phyco
 elif [[ $scene_id == "PRS"* ]]; then
-    out_dir=$(echo $scene_id | cut -c1-38)_chla
+    out_dir=$(echo $scene_id | cut -c1-38)_phyco
 elif [[ $scene_id == "f"* ]]; then
-    out_dir=$(echo $scene_id | cut -c1-16)_chla
+    out_dir=$(echo $scene_id | cut -c1-16)_phyco
 fi
 
 yes | python ${pge_dir}/setup.py install
