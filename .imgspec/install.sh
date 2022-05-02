@@ -4,6 +4,6 @@ pge_dir=$(dirname ${imgspec_dir})
 
 conda create -y --name sister python=3.7
 source activate sister
-conda install -y tensorflow
+conda install -y tensorflow=1.15.0
 cd $pge_dir
 python setup.py install
