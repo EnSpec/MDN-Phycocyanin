@@ -6,17 +6,27 @@ tar_file=$(ls input/*tar.gz)
 #echo $tar_file
 base=$(basename $tar_file)
 #echo $base
-output_dir=${base%.tar.gz}
-#echo $output_dir
-mkdir output/$output_dir
+scene_id=${base%.tar.gz}
+
+if  [[ $scene_id == "ang"* ]]; then
+    out_dir=$(echo $scene_id | cut -c1-18)_phyco
+elif [[ $scene_id == "PRS"* ]]; then
+    out_dir=$(echo $scene_id | cut -c1-38)_phyco
+elif [[ $scene_id == "f"* ]]; then
+    out_dir=$(echo $scene_id | cut -c1-16)_phyco
+fi
+
+mkdir output/$out_dir
+
+yes | python ${pge_dir}/setup.py install
 
 tar -xzvf $tar_file -C input
 
-for a in `python get_paths_from_granules.py`;
+for a in `python ${imgspec_dir}/get_paths_from_granules.py`;
    do
-       python ${pge_dir}/run_mdn.py $a output/$output_dir;
+       python ${pge_dir}/run_mdn.py $a output/$out_dir;
   done
 
 cd output
-tar -czvf $output_dir.tar.gz $output_dir
-rm -r $output_dir
+tar -czvf $out_dir.tar.gz $out_dir
+rm -r $out_dir
