@@ -76,7 +76,7 @@ def main():
     phyco_header['band names']= ['phycocyanin']
     phyco_header['data ignore value']= -9999
 
-    out_file = "%s/%s_phyco" % (out_dir,rfl.base_name[:-3])
+    out_file = "%s/%s_phyco" % (out_dir,rfl.base_name[:-4])
     writer = WriteENVI(out_file,phyco_header)
     writer.write_band(np.log(pc[:,:,0]),0)
 
