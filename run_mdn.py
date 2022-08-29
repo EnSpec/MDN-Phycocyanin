@@ -13,15 +13,6 @@ PRISMA_WAVES = [500, 507, 515, 523, 530,
 				  699, 709, 719, ]
 
 
-def name_cleanup(base_name):
-    if base_name.startswith('PRS'):
-        base_name =base_name[:38]
-    if base_name.startswith('ang'):
-        base_name =base_name[:18]
-    elif base_name.startswith('f'):
-        base_name =base_name[:31]
-    return base_name
-
 def main():
     ''' Estimate phycocyanin concentration from hyperspectral imagery.
     This function is a wrapper around phycocyanin MDN estimator from
@@ -85,7 +76,7 @@ def main():
     phyco_header['band names']= ['phycocyanin']
     phyco_header['data ignore value']= -9999
 
-    out_file = "%s/%s_phyco" % (out_dir,rfl.base_name)
+    out_file = "%s/%s_phyco" % (out_dir,rfl.base_name[:-4])
     writer = WriteENVI(out_file,phyco_header)
     writer.write_band(np.log(pc[:,:,0]),0)
 
