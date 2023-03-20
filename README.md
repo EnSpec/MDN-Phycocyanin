@@ -5,7 +5,7 @@ O'Shea, R. E., Pahlevan, N., Smith, B., Bresciani, M., Egerton, T., Giardino, C.
 ## Use
 
 ```bash
-python run_mdn.py reflectance_image output_directory
+python run_mdn.py reflectance_image fractional_cover_image output_directory
 ```
 
 ---
