@@ -6,6 +6,7 @@ with Path(__file__).parent.joinpath('requirements.txt').open() as f:
 
 setup(
     name='MDNPC',
+    python_requires='==3.7',
     version='1.0',
     packages=find_packages(),
     install_requires=requirements,

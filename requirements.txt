@@ -35,4 +35,5 @@ Werkzeug==1.0.1
 wrapt==1.12.1
 scikit-optimize==0.9.0
 netCDF4==1.5.8
-hy-tools-lite
+hy-tools==1.5.0
+gdal
